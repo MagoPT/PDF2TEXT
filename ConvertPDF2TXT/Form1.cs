@@ -25,6 +25,7 @@ namespace ConvertPDF2TXT
             button1.Text = "Abrir PDF";
             button2.Text = "Converter";
             button3.Text = "Salvar";
+            label1.Text = "ID:";
             textBox1.Enabled = false;
         }
 
@@ -45,6 +46,27 @@ namespace ConvertPDF2TXT
             PDDocument doc = PDDocument.load(textBox1.Text);
             PDFTextStripper stripper = new PDFTextStripper();
             richTextBox1.Text = (stripper.getText(doc));
+            string sPattern = "^\\d{6}$";
+            int contador = 0;
+            foreach (string s in richTextBox1.Lines)
+            {
+                if (contador == 0) { 
+                    if (s.Contains("DADOS ORIGINAIS"))
+                    {
+                        contador++;
+                    }
+                }
+                else
+                {
+                    contador++;
+                    if (contador == 4)
+                    {
+                        //MessageBox.Show(s);
+                        textBox2.Text = s.Substring(0, 6);
+                    }
+                }
+                
+            }
         }
 
         private void Button3_Click(object sender, EventArgs e)
