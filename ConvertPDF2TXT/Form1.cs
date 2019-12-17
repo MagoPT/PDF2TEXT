@@ -48,6 +48,7 @@ namespace ConvertPDF2TXT
             richTextBox1.Text = (stripper.getText(doc));
             string sPattern = "^\\d{6}$";
             int contador = 0;
+            bool cod_ler;
             foreach (string s in richTextBox1.Lines)
             {
                 if (contador == 0) { 
@@ -59,10 +60,20 @@ namespace ConvertPDF2TXT
                 else
                 {
                     contador++;
-                    if (contador == 4)
+                    if (contador >= 4)
                     {
-                        //MessageBox.Show(s);
-                        textBox2.Text = s.Substring(0, 6);
+                        
+                        try
+                        {
+                            cod_ler = true;
+                            string teste_str = s.Substring(0, 6);
+                            int teste = int.Parse(teste_str);
+                            textBox2.Text = s.Substring(0, 6);
+                            break;
+                        }
+                        catch (Exception ex)
+                        {
+                        }
                     }
                 }
                 
