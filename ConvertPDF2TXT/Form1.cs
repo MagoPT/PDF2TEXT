@@ -26,6 +26,8 @@ namespace ConvertPDF2TXT
             button2.Text = "Converter";
             button3.Text = "Salvar";
             label1.Text = "ID:";
+            label2.Text = "Peso:";
+            label3.Text = "Matricula:";
             textBox1.Enabled = false;
         }
 
@@ -41,6 +43,7 @@ namespace ConvertPDF2TXT
           
         }
 
+        public string anterior;
         private void Button2_Click(object sender, EventArgs e)
         {
             PDDocument doc = PDDocument.load(textBox1.Text);
@@ -49,34 +52,68 @@ namespace ConvertPDF2TXT
             string sPattern = "^\\d{6}$";
             int contador = 0;
             bool cod_ler;
+            int matricula_str =0;
+            textBox2.Text = "Error";
+            textBox3.Text = "Error";
+            textBox4.Text = "Error";
             foreach (string s in richTextBox1.Lines)
             {
-                if (contador == 0) { 
-                    if (s.Contains("DADOS ORIGINAIS"))
+                
+                try
+                {
+                    if (matricula_str == 1)
+                    {
+                        matricula_str++;
+                        string matricula = new string(s.Reverse().ToArray());
+                        matricula = new string(matricula.Substring(0, 25).Reverse().ToArray());
+                        textBox4.Text = matricula.Substring(0, 8);
+                    }
+
+                    if (s.Contains("N.º ORDEM NIF/NIPC ORGANIZAÇÃO MATRÍCULA DATA INÍCIO TRANSPORTE HORA INÍCIO TRANSPORTE"))
+                    {
+                        matricula_str++;
+                    }
+
+                    if (contador == 0)
+                    {
+                        if (s.Contains("DADOS ORIGINAIS"))
+                        {
+                            contador++;
+                        }
+                    }
+                    else
                     {
                         contador++;
+                        if (contador >= 1)
+                        {
+
+                            try
+                            {
+                                Console.WriteLine(s);
+                                cod_ler = true;
+                                string teste_str = s.Substring(0, 6);
+                                int teste = int.Parse(teste_str);
+                                textBox2.Text = s.Substring(0, 6);
+                                textBox3.Text = anterior.Substring(0, 7);
+                                break;
+                            }
+                            catch (Exception ex)
+                            {
+                                try
+                                {
+                                    string teste_str = s.Substring(0, 7);
+                                    float teste = float.Parse(teste_str);
+                                    anterior = s;
+                                }
+                                catch { }
+
+                            }
+                        }
                     }
-                }
-                else
+                }catch(Exception eg)
                 {
-                    contador++;
-                    if (contador >= 4)
-                    {
-                        
-                        try
-                        {
-                            cod_ler = true;
-                            string teste_str = s.Substring(0, 6);
-                            int teste = int.Parse(teste_str);
-                            textBox2.Text = s.Substring(0, 6);
-                            break;
-                        }
-                        catch (Exception ex)
-                        {
-                        }
-                    }
+                    MessageBox.Show("Error", eg.ToString());
                 }
-                
             }
         }
 
