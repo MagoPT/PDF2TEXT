@@ -33,3 +33,4 @@ C:\Projetos\PDF2TEXT-git\PDF2TEXT\ConvertPDF2TXT\obj\Debug\ConvertPDF2TXT.csproj
 C:\Projetos\PDF2TEXT-git\PDF2TEXT\ConvertPDF2TXT\obj\Debug\ConvertPDF2TXT.csproj.CopyComplete
 C:\Projetos\PDF2TEXT-git\PDF2TEXT\ConvertPDF2TXT\obj\Debug\ConvertPDF2TXT.exe
 C:\Projetos\PDF2TEXT-git\PDF2TEXT\ConvertPDF2TXT\obj\Debug\ConvertPDF2TXT.pdb
+C:\Projetos\PDF2TEXT-git\PDF2TEXT\ConvertPDF2TXT\obj\Debug\ConvertPDF2TXT.csproj.ResolveComReference.cache

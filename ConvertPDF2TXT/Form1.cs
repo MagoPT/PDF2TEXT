@@ -141,11 +141,26 @@ namespace ConvertPDF2TXT
 
         private void Button3_Click(object sender, EventArgs e)
         {
-            saveFileDialog1.DefaultExt = "*.txt";
-            saveFileDialog1.Filter = "Ficheiro TXT|*.txt";
-            if(saveFileDialog1.ShowDialog()==System.Windows.Forms.DialogResult.OK && saveFileDialog1.FileName.Length > 0)
+            if (dataGridView1.Rows.Count > 0)
             {
-                richTextBox1.SaveFile(saveFileDialog1.FileName, RichTextBoxStreamType.PlainText);
+                Microsoft.Office.Interop.Excel.Application tabealxcel = new Microsoft.Office.Interop.Excel.Application();
+                tabealxcel.Application.Workbooks.Add(Type.Missing);
+                for(int i =1; i <= dataGridView1.Columns.Count; i++)
+                {
+                    tabealxcel.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
+                }
+
+                for (int i = 0; i< dataGridView1.Rows.Count; i++)
+                {
+                    for(int j = 0; j < dataGridView1.Columns.Count; j++)
+                    {
+                       tabealxcel.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value;
+                        //tabealxcel.Cells[i + 2, j + 1] = "batata";
+
+                    }
+                }
+                tabealxcel.Columns.AutoFit();
+                tabealxcel.Visible = true;
             }
         }
 
