@@ -30,6 +30,9 @@ namespace ConvertPDF2TXT
             label3.Text = "Matricula:";
             label4.Text = "Cd Doc:";
             label5.Text = "Data:";
+            label6.Text = "Estabelecimento:";
+            label7.Text = "Transportador:";
+            label8.Text = "Operação:";
             //textBox1.Enabled = false;
         }
 
@@ -40,24 +43,25 @@ namespace ConvertPDF2TXT
             ofd.Filter = "Ficheiros PDF (*.pdf)|*.pdf";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                foreach(string item in ofd.FileNames)
+                foreach (string item in ofd.FileNames)
                 {
                     listBox1.Items.Add(item);
                 }
             }
-          
+
         }
 
         public string anterior;
         private void Button2_Click(object sender, EventArgs e)
         {
-            foreach(string item in listBox1.Items)
+            foreach (string item in listBox1.Items)
             {
                 PDDocument doc = PDDocument.load(item);
                 PDFTextStripper stripper = new PDFTextStripper();
                 richTextBox1.Text = (stripper.getText(doc));
                 string sPattern = "^\\d{6}$";
                 int contador = 0;
+                int contador_est = 0;
                 bool cod_ler;
                 int matricula_str = 0;
                 textBox2.Text = "Error";
@@ -65,6 +69,9 @@ namespace ConvertPDF2TXT
                 textBox4.Text = "Error";
                 textBox5.Text = "Error";
                 textBox6.Text = "Error";
+                textBox7.Text = "Error";
+                textBox8.Text = "Error";
+                textBox9.Text = "Error";
                 foreach (string s in richTextBox1.Lines)
                 {
 
@@ -73,16 +80,25 @@ namespace ConvertPDF2TXT
                         if (matricula_str == 1)
                         {
                             matricula_str++;
-                            string matricula = new string(s.Reverse().ToArray());
-                            matricula = new string(matricula.Substring(0, 25).Reverse().ToArray());
+                            string linha = new string(s.Reverse().ToArray());
+                            string matricula = new string(linha.Substring(0, 25).Reverse().ToArray());
                             textBox4.Text = matricula.Substring(0, 8);
                             textBox6.Text = matricula.Substring(9, 10);
+                            string transportador = new string(linha.Substring(27, 50).Reverse().ToArray());
+                            int index = transportador.IndexOf(",");
+                            textBox9.Text = transportador.Substring(0, index);
 
                         }
 
                         if (s.Contains("N.º ORDEM NIF/NIPC ORGANIZAÇÃO MATRÍCULA DATA INÍCIO TRANSPORTE HORA INÍCIO TRANSPORTE"))
                         {
                             matricula_str++;
+                        }
+                        if (s.Contains("ESTABELECIMENTO") && contador_est==0)
+                        {
+                            string est = s.Remove(0,16);
+                            textBox7.Text = est;
+                            contador_est++;
                         }
 
                         if (s.Contains("CÓDIGO DOCUMENTO"))
@@ -132,11 +148,11 @@ namespace ConvertPDF2TXT
                         MessageBox.Show("Error", eg.ToString());
                     }
                 }
-                string[] row = new string[] { textBox2.Text, textBox5.Text, textBox3.Text, textBox6.Text, textBox4.Text };
+                string[] row = new string[] { textBox2.Text, textBox5.Text, textBox3.Text, textBox6.Text, textBox4.Text, textBox8.Text, textBox7.Text, textBox9.Text };
                 dataGridView1.Rows.Add(row);
             }
             listBox1.Items.Clear();
-            
+
         }
 
         private void Button3_Click(object sender, EventArgs e)
@@ -145,16 +161,16 @@ namespace ConvertPDF2TXT
             {
                 Microsoft.Office.Interop.Excel.Application tabealxcel = new Microsoft.Office.Interop.Excel.Application();
                 tabealxcel.Application.Workbooks.Add(Type.Missing);
-                for(int i =1; i <= dataGridView1.Columns.Count; i++)
+                for (int i = 1; i <= dataGridView1.Columns.Count; i++)
                 {
                     tabealxcel.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
                 }
 
-                for (int i = 0; i< dataGridView1.Rows.Count; i++)
+                for (int i = 0; i < dataGridView1.Rows.Count; i++)
                 {
-                    for(int j = 0; j < dataGridView1.Columns.Count; j++)
+                    for (int j = 0; j < dataGridView1.Columns.Count; j++)
                     {
-                       tabealxcel.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value;
+                        tabealxcel.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value;
                         //tabealxcel.Cells[i + 2, j + 1] = "batata";
 
                     }
