@@ -28,6 +28,7 @@ namespace ConvertPDF2TXT
             button1.Text = "Abrir PDF";
             button2.Text = "Converter";
             button3.Text = "Salvar";
+            button4.Text = "Apagar";
             label1.Text = "Cd. LER:";
             label2.Text = "Peso:";
             label3.Text = "Matricula:";
@@ -332,12 +333,21 @@ namespace ConvertPDF2TXT
 
         private void AjudaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Abrir - Abre um navegador onde o utilizador pode escolher os documentos a serem analisados\nConverter - Adiciona a informação dos documentos selecionados a tabela \nSalvar - Salva a tabela num documento excel ", "Ajuda");
+            MessageBox.Show("Abrir - Abre um navegador onde o utilizador pode escolher os documentos a serem analisados\nConverter - Adiciona a informação dos documentos selecionados a tabela \nSalvar - Salva a tabela num documento excel \nApagar - Apaga a tabela atual ", "Ajuda");
         }
 
         private void CréditosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Programador: Duarte Cruz \nIcons: https://www.flaticon.com/br/autores/iconixar \nCodigo Base: https://www.youtube.com/watch?v=neynvzrPTbs", "Créditos");
+        }
+
+        private void Button4_Click(object sender, EventArgs e)
+        {
+            if(MessageBox.Show("Deseja apagar a tabela atual?","Apagar",MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+
+            }
+            dataGridView1.Rows.Clear();
         }
     }
 }

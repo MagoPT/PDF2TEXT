@@ -64,6 +64,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ajudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.créditosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -269,10 +270,18 @@
             resources.ApplyResources(this.créditosToolStripMenuItem, "créditosToolStripMenuItem");
             this.créditosToolStripMenuItem.Click += new System.EventHandler(this.CréditosToolStripMenuItem_Click);
             // 
+            // button4
+            // 
+            resources.ApplyResources(this.button4, "button4");
+            this.button4.Name = "button4";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.Button4_Click);
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.button3);
@@ -345,6 +354,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem ajudaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem créditosToolStripMenuItem;
+        private System.Windows.Forms.Button button4;
     }
 }
 
