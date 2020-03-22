@@ -51,7 +51,7 @@ namespace ConvertPDF2TXT
 
         }
 
-        public string anterior;
+        
         private void Button2_Click(object sender, EventArgs e)
         {
             foreach (string item in listBox1.Items)
@@ -63,7 +63,11 @@ namespace ConvertPDF2TXT
                 int contador = 0;
                 int contador_est = 0;
                 bool cod_ler;
+                string anterior = "Error";
+                int index = 0;
+                int index2 = 0;
                 int matricula_str = 0;
+                int contador2 = 0;
                 textBox2.Text = "Error";
                 textBox3.Text = "Error";
                 textBox4.Text = "Error";
@@ -82,10 +86,13 @@ namespace ConvertPDF2TXT
                             matricula_str++;
                             string linha = new string(s.Reverse().ToArray());
                             string matricula = new string(linha.Substring(0, 25).Reverse().ToArray());
-                            textBox4.Text = matricula.Substring(0, 8);
+                            if (s.Contains("-"))
+                            {
+                                textBox4.Text = matricula.Substring(0, 8);
+                            }
                             textBox6.Text = matricula.Substring(9, 10);
                             string transportador = new string(linha.Substring(27, 50).Reverse().ToArray());
-                            int index = transportador.IndexOf(",");
+                            index = transportador.IndexOf(",");
                             textBox9.Text = transportador.Substring(0, index);
 
                         }
@@ -105,7 +112,18 @@ namespace ConvertPDF2TXT
                         {
                             textBox5.Text = s.Substring(17, 16);
                         }
-
+                        if (contador2 > 0)
+                        {
+                            if (s.Contains("R"))
+                            {
+                                if (s.Contains(" - "))
+                                {
+                                    index = s.IndexOf("-");
+                                    textBox8.Text = s.Substring(0, index);
+                                    break;
+                                }
+                            }
+                        }
                         if (contador == 0)
                         {
                             if (s.Contains("DADOS ORIGINAIS"))
@@ -126,16 +144,18 @@ namespace ConvertPDF2TXT
                                     string teste_str = s.Substring(0, 6);
                                     int teste = int.Parse(teste_str);
                                     textBox2.Text = s.Substring(0, 6);
-                                    textBox3.Text = anterior.Substring(0, 7);
-                                    break;
+                                    textBox3.Text = anterior.Substring(0, index2+2);     
                                 }
                                 catch (Exception ex)
                                 {
                                     try
                                     {
-                                        string teste_str = s.Substring(0, 7);
+                                        index = s.IndexOf(",");
+                                        string teste_str = s.Substring(0, index);
                                         float teste = float.Parse(teste_str);
+                                        index2 = s.IndexOf(",");
                                         anterior = s;
+                                        contador2++;
                                     }
                                     catch { }
 
@@ -145,7 +165,7 @@ namespace ConvertPDF2TXT
                     }
                     catch (Exception eg)
                     {
-                        MessageBox.Show("Error", eg.ToString());
+                        //MessageBox.Show("Error", eg.ToString());
                     }
                 }
                 string[] row = new string[] { textBox2.Text, textBox5.Text, textBox3.Text, textBox6.Text, textBox4.Text, textBox8.Text, textBox7.Text, textBox9.Text };
