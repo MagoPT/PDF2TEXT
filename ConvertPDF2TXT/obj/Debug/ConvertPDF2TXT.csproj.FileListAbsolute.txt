@@ -54,3 +54,4 @@ C:\wamp64\www\PDF2TEXT-master\PDF2TEXT-master\ConvertPDF2TXT\obj\Debug\ConvertPD
 C:\wamp64\www\PDF2TEXT-master\PDF2TEXT-master\ConvertPDF2TXT\bin\Debug\pt\ConvertPDF2TXT.resources.dll
 C:\wamp64\www\PDF2TEXT-master\PDF2TEXT-master\ConvertPDF2TXT\obj\Debug\ConvertPDF2TXT.Form1.pt.resources
 C:\wamp64\www\PDF2TEXT-master\PDF2TEXT-master\ConvertPDF2TXT\obj\Debug\pt\ConvertPDF2TXT.resources.dll
+C:\wamp64\www\PDF2TEXT-master\PDF2TEXT-master\ConvertPDF2TXT\bin\Debug\MySql.Data.dll

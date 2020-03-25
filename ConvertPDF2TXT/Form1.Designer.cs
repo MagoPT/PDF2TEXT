@@ -36,14 +36,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.cod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.n_guia = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quant = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.data = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.matricula = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Operacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Estabelecimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Transportador = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -65,6 +57,14 @@
             this.ajudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.créditosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button4 = new System.Windows.Forms.Button();
+            this.Estabelecimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quant = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.data = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.n_guia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.matricula = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Transportador = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Operacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -103,66 +103,18 @@
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Estabelecimento,
             this.cod,
-            this.n_guia,
             this.quant,
             this.data,
+            this.n_guia,
             this.matricula,
-            this.Operacao,
-            this.Estabelecimento,
-            this.Transportador});
+            this.Transportador,
+            this.Operacao});
             resources.ApplyResources(this.dataGridView1, "dataGridView1");
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellContentClick);
-            // 
-            // cod
-            // 
-            resources.ApplyResources(this.cod, "cod");
-            this.cod.Name = "cod";
-            this.cod.ReadOnly = true;
-            // 
-            // n_guia
-            // 
-            resources.ApplyResources(this.n_guia, "n_guia");
-            this.n_guia.Name = "n_guia";
-            this.n_guia.ReadOnly = true;
-            // 
-            // quant
-            // 
-            resources.ApplyResources(this.quant, "quant");
-            this.quant.Name = "quant";
-            this.quant.ReadOnly = true;
-            // 
-            // data
-            // 
-            resources.ApplyResources(this.data, "data");
-            this.data.Name = "data";
-            this.data.ReadOnly = true;
-            // 
-            // matricula
-            // 
-            resources.ApplyResources(this.matricula, "matricula");
-            this.matricula.Name = "matricula";
-            this.matricula.ReadOnly = true;
-            // 
-            // Operacao
-            // 
-            resources.ApplyResources(this.Operacao, "Operacao");
-            this.Operacao.Name = "Operacao";
-            this.Operacao.ReadOnly = true;
-            // 
-            // Estabelecimento
-            // 
-            resources.ApplyResources(this.Estabelecimento, "Estabelecimento");
-            this.Estabelecimento.Name = "Estabelecimento";
-            this.Estabelecimento.ReadOnly = true;
-            // 
-            // Transportador
-            // 
-            resources.ApplyResources(this.Transportador, "Transportador");
-            this.Transportador.Name = "Transportador";
-            this.Transportador.ReadOnly = true;
             // 
             // listBox1
             // 
@@ -277,6 +229,54 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.Button4_Click);
             // 
+            // Estabelecimento
+            // 
+            resources.ApplyResources(this.Estabelecimento, "Estabelecimento");
+            this.Estabelecimento.Name = "Estabelecimento";
+            this.Estabelecimento.ReadOnly = true;
+            // 
+            // cod
+            // 
+            resources.ApplyResources(this.cod, "cod");
+            this.cod.Name = "cod";
+            this.cod.ReadOnly = true;
+            // 
+            // quant
+            // 
+            resources.ApplyResources(this.quant, "quant");
+            this.quant.Name = "quant";
+            this.quant.ReadOnly = true;
+            // 
+            // data
+            // 
+            resources.ApplyResources(this.data, "data");
+            this.data.Name = "data";
+            this.data.ReadOnly = true;
+            // 
+            // n_guia
+            // 
+            resources.ApplyResources(this.n_guia, "n_guia");
+            this.n_guia.Name = "n_guia";
+            this.n_guia.ReadOnly = true;
+            // 
+            // matricula
+            // 
+            resources.ApplyResources(this.matricula, "matricula");
+            this.matricula.Name = "matricula";
+            this.matricula.ReadOnly = true;
+            // 
+            // Transportador
+            // 
+            resources.ApplyResources(this.Transportador, "Transportador");
+            this.Transportador.Name = "Transportador";
+            this.Transportador.ReadOnly = true;
+            // 
+            // Operacao
+            // 
+            resources.ApplyResources(this.Operacao, "Operacao");
+            this.Operacao.Name = "Operacao";
+            this.Operacao.ReadOnly = true;
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -326,15 +326,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cod;
-        private System.Windows.Forms.DataGridViewTextBoxColumn n_guia;
-        private System.Windows.Forms.DataGridViewTextBoxColumn quant;
-        private System.Windows.Forms.DataGridViewTextBoxColumn data;
-        private System.Windows.Forms.DataGridViewTextBoxColumn matricula;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Operacao;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Estabelecimento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Transportador;
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBox5;
@@ -355,6 +347,14 @@
         private System.Windows.Forms.ToolStripMenuItem ajudaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem créditosToolStripMenuItem;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Estabelecimento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cod;
+        private System.Windows.Forms.DataGridViewTextBoxColumn quant;
+        private System.Windows.Forms.DataGridViewTextBoxColumn data;
+        private System.Windows.Forms.DataGridViewTextBoxColumn n_guia;
+        private System.Windows.Forms.DataGridViewTextBoxColumn matricula;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Transportador;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Operacao;
     }
 }
 

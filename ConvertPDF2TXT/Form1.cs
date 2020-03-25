@@ -9,11 +9,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using org.apache.pdfbox.pdmodel;
 using org.apache.pdfbox.util;
+using MySql.Data.MySqlClient;
+using System.Data.OleDb;
 
 namespace ConvertPDF2TXT
 {
     public partial class Form1 : Form
     {
+        OleDbCommand cmd = new OleDbCommand();
+        OleDbConnection cn = new OleDbConnection();
+        OleDbConnection dr;
         public Form1()
         {
             InitializeComponent();
@@ -21,7 +26,8 @@ namespace ConvertPDF2TXT
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            cn.ConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\duart\Documents\exemplo1.accdb";
+            cmd.Connection = cn;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Text = "Conversor";
@@ -93,12 +99,25 @@ namespace ConvertPDF2TXT
                             {
                                 matricula_str++;
                                 string linha = new string(s.Reverse().ToArray());
+
                                 string matricula = new string(linha.Substring(0, 25).Reverse().ToArray());
                                 if (s.Contains("-"))
                                 {
                                     textBox4.Text = matricula.Substring(0, 8);
+                                    textBox4.Text = textBox4.Text.Replace("-","");
                                 }
                                 textBox6.Text = matricula.Substring(9, 10);
+                                try
+                                {
+                                   string data = textBox6.Text[8] + "" + textBox6.Text[9] + "/" + textBox6.Text[5] + "" + textBox6.Text[6] + "/" + textBox6.Text[0] + "" + textBox6.Text[1] + textBox6.Text[2] + "" + textBox6.Text[3];
+
+                                    textBox6.Text = data;
+                                }
+                                catch
+                                {
+
+                                }
+                                //textBox6.Text = textBox6.Text.Reverse().ToString(); ;
                                 //string transportador = new string(linha.Substring(27, 50).Reverse().ToArray());
                                 //index = transportador.IndexOf(",");
                                 //textBox9.Text = transportador.Substring(0, index);
@@ -273,20 +292,20 @@ namespace ConvertPDF2TXT
                             var res2 = MessageBox.Show("Deseja adicionar a lista o documento?", "Cod. Ler", MessageBoxButtons.YesNo);
                             if (res2 == DialogResult.Yes)
                             {
-                                string[] row = new string[] { textBox2.Text, textBox5.Text, textBox3.Text, textBox6.Text, textBox4.Text, textBox8.Text, textBox7.Text, textBox9.Text };
+                                string[] row = new string[] { textBox7.Text, textBox2.Text, textBox3.Text, textBox6.Text, textBox5.Text, textBox4.Text, textBox9.Text, textBox8.Text };
                                 dataGridView1.Rows.Add(row);
                             }
 
                         }
                         else if (res == DialogResult.No)
                         {
-                            string[] row = new string[] { textBox2.Text, textBox5.Text, textBox3.Text, textBox6.Text, textBox4.Text, textBox8.Text, textBox7.Text, textBox9.Text };
+                            string[] row = new string[] { textBox7.Text, textBox2.Text, textBox3.Text, textBox6.Text, textBox5.Text, textBox4.Text, textBox9.Text, textBox8.Text };
                             dataGridView1.Rows.Add(row);
                         }
                     }
                     else
                     {
-                        string[] row = new string[] { textBox2.Text, textBox5.Text, textBox3.Text, textBox6.Text, textBox4.Text, textBox8.Text, textBox7.Text, textBox9.Text };
+                        string[] row = new string[] { textBox7.Text, textBox2.Text, textBox3.Text, textBox6.Text, textBox5.Text, textBox4.Text, textBox9.Text, textBox8.Text };
                         dataGridView1.Rows.Add(row);
                     }
 
@@ -305,24 +324,43 @@ namespace ConvertPDF2TXT
         {
             if (dataGridView1.Rows.Count > 0)
             {
+                cn.Open();
                 Microsoft.Office.Interop.Excel.Application tabealxcel = new Microsoft.Office.Interop.Excel.Application();
                 tabealxcel.Application.Workbooks.Add(Type.Missing);
                 for (int i = 1; i <= dataGridView1.Columns.Count; i++)
                 {
                     tabealxcel.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
                 }
-
-                for (int i = 0; i < dataGridView1.Rows.Count; i++)
-                {
-                    for (int j = 0; j < dataGridView1.Columns.Count; j++)
+                    for (int i = 0; i < (dataGridView1.Rows.Count-1); i++)
                     {
-                        tabealxcel.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value;
-                        //tabealxcel.Cells[i + 2, j + 1] = "batata";
+                        try
+                        {
+                           
+                            for (int j = 0; j < dataGridView1.Columns.Count; j++)
+                            {
+                                tabealxcel.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value;
 
+
+                            }
+                            string q = "insert into Registos_Entradas(Empresa, Cod_Produto,Quantidade,Data_entrada,Num_Guia,Matricula,Transportador)VALUES('" + dataGridView1.Rows[i].Cells[0].Value + "','" + dataGridView1.Rows[i].Cells[1].Value + "','" + dataGridView1.Rows[i].Cells[2].Value + "','" + dataGridView1.Rows[i].Cells[3].Value + "','" + dataGridView1.Rows[i].Cells[4].Value + "','" + dataGridView1.Rows[i].Cells[5].Value + "','" + dataGridView1.Rows[i].Cells[6].Value + "')";
+                            cmd.CommandText = q;
+                            cmd.ExecuteNonQuery();
+                        }
+                    catch(System.Data.OleDb.OleDbException)
+                    {
+                        MessageBox.Show("Valores já existentes na DB");
                     }
-                }
+                        catch(Exception ex)
+                        {
+                                MessageBox.Show(ex.ToString());
+                                Clipboard.SetText(ex.ToString());
+                    }
+                    }
+
+               
                 tabealxcel.Columns.AutoFit();
                 tabealxcel.Visible = true;
+                cn.Close();
             }
         }
 
