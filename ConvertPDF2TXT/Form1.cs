@@ -326,49 +326,44 @@ namespace ConvertPDF2TXT
 
         private void Button3_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.Rows.Count > 0)
+            try
             {
+                cn.Close();
                 cn.ConnectionString = provider_Db + db_loc;
-                MessageBox.Show(cn.ConnectionString);
-                cmd.Connection = cn;
                 cn.Open();
-                Microsoft.Office.Interop.Excel.Application tabealxcel = new Microsoft.Office.Interop.Excel.Application();
-                tabealxcel.Application.Workbooks.Add(Type.Missing);
-                for (int i = 1; i <= dataGridView1.Columns.Count; i++)
+                cmd.Connection = cn;
+                if (dataGridView1.Rows.Count > 0)
                 {
-                    tabealxcel.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
-                }
-                    for (int i = 0; i < (dataGridView1.Rows.Count-1); i++)
+
+                    for (int i = 0; i < (dataGridView1.Rows.Count - 1); i++)
                     {
                         try
                         {
-                           
-                            for (int j = 0; j < dataGridView1.Columns.Count; j++)
-                            {
-                                tabealxcel.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value;
-
-
-                            }
                             string q = "insert into Registos_Entradas(Empresa, Cod_Produto,Quantidade,Data_entrada,Num_Guia,Matricula,Transportador)VALUES('" + dataGridView1.Rows[i].Cells[0].Value + "','" + dataGridView1.Rows[i].Cells[1].Value + "','" + dataGridView1.Rows[i].Cells[2].Value + "','" + dataGridView1.Rows[i].Cells[3].Value + "','" + dataGridView1.Rows[i].Cells[4].Value + "','" + dataGridView1.Rows[i].Cells[5].Value + "','" + dataGridView1.Rows[i].Cells[6].Value + "')";
                             cmd.CommandText = q;
                             cmd.ExecuteNonQuery();
                         }
-                    catch(System.Data.OleDb.OleDbException)
-                    {
-                        MessageBox.Show("Valores já existentes na DB");
-                    }
-                        catch(Exception ex)
+                        catch (System.Data.OleDb.OleDbException)
                         {
-                                MessageBox.Show(ex.ToString());
-                                Clipboard.SetText(ex.ToString());
+                            MessageBox.Show("Valores já existentes na DB");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.ToString());
+                            Clipboard.SetText(ex.ToString());
+                        }
                     }
-                    }
-
-               
-                tabealxcel.Columns.AutoFit();
-                tabealxcel.Visible = true;
+                }
                 cn.Close();
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
             }
+            finally
+            {
+                MessageBox.Show("Alterações feitas com sucesso");
+            }
+            
         }
 
         private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -417,8 +412,7 @@ namespace ConvertPDF2TXT
                     provider_Db = "Provider=Microsoft.JET.OLEDB.4.0;";
                 }
                     db_loc = "Data Source ="+ ofd.FileName;
-                    MessageBox.Show(db_loc);
-                    MessageBox.Show(provider_Db);
+
             }
         }
     }
