@@ -19,6 +19,10 @@ namespace ConvertPDF2TXT
         OleDbCommand cmd = new OleDbCommand();
         OleDbConnection cn = new OleDbConnection();
         OleDbConnection dr;
+        string provider_Db = "Provider=Microsoft.ACE.OLEDB.12.0;";
+        string db_loc = "";
+        string security_info = "Persist Security Info = ;";
+        string db_pass = "Jet OLEDB:Database Password = ;";
         public Form1()
         {
             InitializeComponent();
@@ -26,8 +30,7 @@ namespace ConvertPDF2TXT
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            cn.ConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\duart\Documents\exemplo1.accdb";
-            cmd.Connection = cn;
+            
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Text = "Conversor";
@@ -35,6 +38,7 @@ namespace ConvertPDF2TXT
             button2.Text = "Converter";
             button3.Text = "Salvar";
             button4.Text = "Apagar";
+            button5.Text = "Localizar DB";
             label1.Text = "Cd. LER:";
             label2.Text = "Peso:";
             label3.Text = "Matricula:";
@@ -324,6 +328,8 @@ namespace ConvertPDF2TXT
         {
             if (dataGridView1.Rows.Count > 0)
             {
+                cn.ConnectionString = provider_Db + db_loc;
+                cmd.Connection = cn;
                 cn.Open();
                 Microsoft.Office.Interop.Excel.Application tabealxcel = new Microsoft.Office.Interop.Excel.Application();
                 tabealxcel.Application.Workbooks.Add(Type.Missing);
@@ -392,6 +398,21 @@ namespace ConvertPDF2TXT
         {
             dependecias f2 = new dependecias();
             f2.Show();
+        }
+
+        private void Button5_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Multiselect = false;
+            ofd.Filter = "Ficheiros DB (*.accdb)|*.accdb";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                foreach (string item in ofd.FileNames)
+                {
+                    db_loc = "Data Source ="+ item;
+                    MessageBox.Show(db_loc);
+                }
+            }
         }
     }
 }

@@ -64,8 +64,9 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.ajudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.créditosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button4 = new System.Windows.Forms.Button();
             this.dependênciasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -272,6 +273,12 @@
             resources.ApplyResources(this.créditosToolStripMenuItem, "créditosToolStripMenuItem");
             this.créditosToolStripMenuItem.Click += new System.EventHandler(this.CréditosToolStripMenuItem_Click);
             // 
+            // dependênciasToolStripMenuItem
+            // 
+            this.dependênciasToolStripMenuItem.Name = "dependênciasToolStripMenuItem";
+            resources.ApplyResources(this.dependênciasToolStripMenuItem, "dependênciasToolStripMenuItem");
+            this.dependênciasToolStripMenuItem.Click += new System.EventHandler(this.DependênciasToolStripMenuItem_Click);
+            // 
             // button4
             // 
             resources.ApplyResources(this.button4, "button4");
@@ -279,16 +286,18 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.Button4_Click);
             // 
-            // dependênciasToolStripMenuItem
+            // button5
             // 
-            this.dependênciasToolStripMenuItem.Name = "dependênciasToolStripMenuItem";
-            resources.ApplyResources(this.dependênciasToolStripMenuItem, "dependênciasToolStripMenuItem");
-            this.dependênciasToolStripMenuItem.Click += new System.EventHandler(this.DependênciasToolStripMenuItem_Click);
+            resources.ApplyResources(this.button5, "button5");
+            this.button5.Name = "button5";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.Button5_Click);
             // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.listBox1);
@@ -364,6 +373,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Transportador;
         private System.Windows.Forms.DataGridViewTextBoxColumn Operacao;
         private System.Windows.Forms.ToolStripMenuItem dependênciasToolStripMenuItem;
+        private System.Windows.Forms.Button button5;
     }
 }
 
