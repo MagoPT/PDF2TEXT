@@ -707,6 +707,24 @@
   <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>293, 17</value>
   </metadata>
+  <data name="ajudaToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 20</value>
+  </data>
+  <data name="ajudaToolStripMenuItem.Text" xml:space="preserve">
+    <value>Ajuda</value>
+  </data>
+  <data name="créditosToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>63, 20</value>
+  </data>
+  <data name="créditosToolStripMenuItem.Text" xml:space="preserve">
+    <value>Créditos</value>
+  </data>
+  <data name="dependênciasToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>93, 20</value>
+  </data>
+  <data name="dependênciasToolStripMenuItem.Text" xml:space="preserve">
+    <value>Dependências</value>
+  </data>
   <data name="menuStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
@@ -730,18 +748,6 @@
   </data>
   <data name="&gt;&gt;menuStrip1.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="ajudaToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 20</value>
-  </data>
-  <data name="ajudaToolStripMenuItem.Text" xml:space="preserve">
-    <value>Ajuda</value>
-  </data>
-  <data name="créditosToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 20</value>
-  </data>
-  <data name="créditosToolStripMenuItem.Text" xml:space="preserve">
-    <value>Créditos</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="button4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
@@ -2547,18 +2553,6 @@
   <data name="&gt;&gt;saveFileDialog1.Type" xml:space="preserve">
     <value>System.Windows.Forms.SaveFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ajudaToolStripMenuItem.Name" xml:space="preserve">
-    <value>ajudaToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;ajudaToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;créditosToolStripMenuItem.Name" xml:space="preserve">
-    <value>créditosToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;créditosToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;Estabelecimento.Name" xml:space="preserve">
     <value>Estabelecimento</value>
   </data>
@@ -2606,6 +2600,24 @@
   </data>
   <data name="&gt;&gt;Operacao.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ajudaToolStripMenuItem.Name" xml:space="preserve">
+    <value>ajudaToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;ajudaToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;créditosToolStripMenuItem.Name" xml:space="preserve">
+    <value>créditosToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;créditosToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dependênciasToolStripMenuItem.Name" xml:space="preserve">
+    <value>dependênciasToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;dependênciasToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Form1</value>

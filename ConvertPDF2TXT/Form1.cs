@@ -387,6 +387,12 @@ namespace ConvertPDF2TXT
             }
             dataGridView1.Rows.Clear();
         }
+
+        private void DependênciasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dependecias f2 = new dependecias();
+            f2.Show();
+        }
     }
 }
 
