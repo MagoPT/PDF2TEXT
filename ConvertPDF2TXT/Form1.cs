@@ -19,8 +19,8 @@ namespace ConvertPDF2TXT
         OleDbCommand cmd = new OleDbCommand();
         OleDbConnection cn = new OleDbConnection();
         OleDbConnection dr;
-        string provider_Db = "Provider=Microsoft.ACE.OLEDB.12.0;";
         string db_loc = "";
+        string provider_Db = "";
         string security_info = "Persist Security Info = ;";
         string db_pass = "Jet OLEDB:Database Password = ;";
         public Form1()
@@ -329,6 +329,7 @@ namespace ConvertPDF2TXT
             if (dataGridView1.Rows.Count > 0)
             {
                 cn.ConnectionString = provider_Db + db_loc;
+                MessageBox.Show(cn.ConnectionString);
                 cmd.Connection = cn;
                 cn.Open();
                 Microsoft.Office.Interop.Excel.Application tabealxcel = new Microsoft.Office.Interop.Excel.Application();
@@ -408,7 +409,6 @@ namespace ConvertPDF2TXT
             {
                 int dot = ofd.FileName.IndexOf('.');
                     string ext = ofd.FileName.Substring(dot+1);
-                MessageBox.Show(ext);
                 if(ext == "accdb")
                 {
                     provider_Db = "Provider=Microsoft.ACE.OLEDB.12.0;";
@@ -418,6 +418,7 @@ namespace ConvertPDF2TXT
                 }
                     db_loc = "Data Source ="+ ofd.FileName;
                     MessageBox.Show(db_loc);
+                    MessageBox.Show(provider_Db);
             }
         }
     }
