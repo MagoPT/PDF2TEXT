@@ -403,15 +403,21 @@ namespace ConvertPDF2TXT
         private void Button5_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Multiselect = false;
             ofd.Filter = "Ficheiros DB (*.accdb,*.mdb)|*.accdb;*.mdb";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                foreach (string item in ofd.FileNames)
+                int dot = ofd.FileName.IndexOf('.');
+                    string ext = ofd.FileName.Substring(dot+1);
+                MessageBox.Show(ext);
+                if(ext == "accdb")
                 {
-                    db_loc = "Data Source ="+ item;
-                    MessageBox.Show(db_loc);
+                    provider_Db = "Provider=Microsoft.ACE.OLEDB.12.0;";
+                }else if(ext == "mdb")
+                {
+                    provider_Db = "Provider=Microsoft.JET.OLEDB.4.0;";
                 }
+                    db_loc = "Data Source ="+ ofd.FileName;
+                    MessageBox.Show(db_loc);
             }
         }
     }
