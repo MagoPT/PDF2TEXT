@@ -404,7 +404,7 @@ namespace ConvertPDF2TXT
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Multiselect = false;
-            ofd.Filter = "Ficheiros DB (*.accdb)|*.accdb";
+            ofd.Filter = "Ficheiros DB (*.accdb,*.mdb)|*.accdb;*.mdb";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 foreach (string item in ofd.FileNames)
