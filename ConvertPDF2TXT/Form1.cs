@@ -107,8 +107,20 @@ namespace ConvertPDF2TXT
                                 string matricula = new string(linha.Substring(0, 25).Reverse().ToArray());
                                 if (s.Contains("-"))
                                 {
+                                    if (s.Contains(" - "))
+                                    {
+                                        Console.WriteLine(s);
+                                    }
                                     textBox4.Text = matricula.Substring(0, 8);
                                     textBox4.Text = textBox4.Text.Replace("-","");
+                                    textBox4.Text = textBox4.Text.Replace(" ", "");
+                                    if (textBox4.Text.Length == 4)
+                                    {
+                                        String matricula_v2 = new string(linha.Substring(0, 29).Reverse().ToArray());
+                                        textBox4.Text = matricula.Substring(0, 11);
+                                        textBox4.Text = textBox4.Text.Replace("-", "");
+                                        textBox4.Text = textBox4.Text.Replace(" ", "");
+                                    }
                                 }
                                 textBox6.Text = matricula.Substring(9, 10);
                                 try
@@ -126,7 +138,7 @@ namespace ConvertPDF2TXT
                                 //index = transportador.IndexOf(",");
                                 //textBox9.Text = transportador.Substring(0, index);
                                 string transportador = s.Substring(s.IndexOf(" ") + 1);
-                                transportador = transportador.Substring(transportador.IndexOf(" ")+1, transportador.IndexOf("-")-11);
+                                transportador = transportador.Substring(transportador.IndexOf(" ")+1, transportador.IndexOf("-")-13);
                                 textBox9.Text = transportador;
 
                             }
@@ -173,18 +185,19 @@ namespace ConvertPDF2TXT
 
                                     try
                                     {
-                                        Console.WriteLine(s);
                                         cod_ler = true;
                                         string teste_str = s.Substring(0, 6);
                                         int teste = int.Parse(teste_str);
                                         textBox2.Text = s.Substring(0, 6);
                                         try
                                         {
-                                            textBox3.Text = anterior.Substring(anterior.IndexOf(")") + 2, anterior.IndexOf(",") + 1);
+                                            textBox3.Text = anterior.Substring(anterior.IndexOf(")") + 1, anterior.IndexOf(",") + 2);
+                                            textBox3.Text=textBox3.Text.Replace(" ","");
                                         }
                                         catch
                                         {
-                                            textBox3.Text = anterior.Substring(0, anterior_comp.IndexOf(",") + 1);
+                                            textBox3.Text = anterior.Substring(0, anterior_comp.IndexOf(","));
+                                            textBox3.Text = textBox3.Text.Replace(" ", "");
                                         }
                                         
                                     }
@@ -343,9 +356,13 @@ namespace ConvertPDF2TXT
                             cmd.CommandText = q;
                             cmd.ExecuteNonQuery();
                         }
-                        catch (System.Data.OleDb.OleDbException)
+                        catch (System.Data.OleDb.OleDbException error)
                         {
-                            MessageBox.Show("Valores já existentes na DB");
+                            var res = MessageBox.Show("Erro ao inserir na BD \nGuia Nº: "+ dataGridView1.Rows[i].Cells[4].Value+"\nDeseja ver mais promenores sobre este erro?","Erro ao inserir",MessageBoxButtons.YesNo);
+                            if (res == DialogResult.Yes)
+                            {
+                                MessageBox.Show(error+"", "Erro detalhado da guia: " + dataGridView1.Rows[i].Cells[4].Value);
+                            }
                         }
                         catch (Exception ex)
                         {
