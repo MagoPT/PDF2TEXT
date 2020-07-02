@@ -94,6 +94,8 @@ namespace ConvertPDF2TXT
                     textBox7.Text = "Error";
                     textBox8.Text = "Error";
                     textBox9.Text = "Error";
+                    int contador_alt = 0;
+                    string old_s = "";
                     foreach (string s in richTextBox1.Lines)
                     {
 
@@ -194,6 +196,7 @@ namespace ConvertPDF2TXT
                             if (s.Contains("CÓDIGO DOCUMENTO"))
                             {
                                 textBox5.Text = s.Substring(17, 16);
+                               
                             }
                             if (contador2 > 0)
                             {
@@ -217,15 +220,32 @@ namespace ConvertPDF2TXT
                             else
                             {
                                 contador++;
+                                
                                 if (contador >= 1)
                                 {
-
+                                    if (textBox2.Text != "Error" && contador_alt == 1)
+                                    {
+                                        contador_alt++;
+                                        
+                                        index = s.IndexOf("-");
+                                        textBox8.Text = s.Substring(0, index);
+                                    }
+                                    old_s = s;
                                     try
                                     {
+                                       
                                         cod_ler = true;
                                         string teste_str = s.Substring(0, 6);
-                                        int teste = int.Parse(teste_str);
-                                        textBox2.Text = s.Substring(0, 6);
+                                        try
+                                        {
+                                            int teste = int.Parse(teste_str);
+                                            textBox2.Text = s.Substring(0, 6);
+                                            contador_alt++;
+                                            
+
+                                        }
+                                        catch(Exception ex) { }
+                                        
                                         try
                                         {
                                             textBox3.Text = anterior.Substring(anterior.IndexOf(")") + 1, anterior.IndexOf(",") + 2);
