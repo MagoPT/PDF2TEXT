@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using org.apache.pdfbox.pdmodel;
 using org.apache.pdfbox.util;
-using MySql.Data.MySqlClient;
+// using MySql.Data.MySqlClient;
 using System.Data.OleDb;
 
 namespace ConvertPDF2TXT
@@ -79,7 +79,7 @@ namespace ConvertPDF2TXT
                     string error = "";
                     int contador = 0;
                     int contador_est = 0;
-                    bool cod_ler;
+                    bool cod_ler =false;
                     string anterior = "Error";
                     string anterior_comp = "Error";
                     int index = 0;
@@ -94,8 +94,6 @@ namespace ConvertPDF2TXT
                     textBox7.Text = "Error";
                     textBox8.Text = "Error";
                     textBox9.Text = "Error";
-                    int contador_alt = 0;
-                    string old_s = "";
                     foreach (string s in richTextBox1.Lines)
                     {
 
@@ -105,35 +103,30 @@ namespace ConvertPDF2TXT
                             {
                                 matricula_str++;
                                 string linha = new string(s.Reverse().ToArray());
-                                int leng_mat = 0;
+
                                 string matricula = new string(linha.Substring(0, 25).Reverse().ToArray());
-                               
                                 if (s.Contains("-"))
                                 {
-                                    textBox4.Text = matricula.Substring(0, 8).ToUpper();
-                                    leng_mat = textBox4.Text.Length;
+                                    if (s.Contains(" - "))
+                                    {
+                                        Console.WriteLine(s);
+                                    }
+                                    textBox4.Text = matricula.Substring(0, 8);
                                     textBox4.Text = textBox4.Text.Replace("-","");
                                     textBox4.Text = textBox4.Text.Replace(" ", "");
                                     if (textBox4.Text.Length == 4)
                                     {
                                         String matricula_v2 = new string(linha.Substring(0, 29).Reverse().ToArray());
-                                        leng_mat = textBox4.Text.Length;
-                                        textBox4.Text = matricula.Substring(0, 11).ToUpper();
+                                        textBox4.Text = matricula.Substring(0, 11);
                                         textBox4.Text = textBox4.Text.Replace("-", "");
                                         textBox4.Text = textBox4.Text.Replace(" ", "");
                                     }
-                                }else if (matricula.Substring(0, 8).Replace(" ","").Length==6)
-                                {
-                                    textBox4.Text = matricula.Substring(0, 8).ToUpper();
-                                    leng_mat = textBox4.Text.Length;
-                                    textBox4.Text = textBox4.Text.Replace("-", "");
-                                    textBox4.Text = textBox4.Text.Replace(" ", "");
                                 }
                                 textBox6.Text = matricula.Substring(9, 10);
                                 try
                                 {
                                    string data = textBox6.Text[8] + "" + textBox6.Text[9] + "/" + textBox6.Text[5] + "" + textBox6.Text[6] + "/" + textBox6.Text[0] + "" + textBox6.Text[1] + textBox6.Text[2] + "" + textBox6.Text[3];
-                                   
+
                                     textBox6.Text = data;
                                 }
                                 catch
@@ -145,41 +138,9 @@ namespace ConvertPDF2TXT
                                 //index = transportador.IndexOf(",");
                                 //textBox9.Text = transportador.Substring(0, index);
                                 string transportador = s.Substring(s.IndexOf(" ") + 1);
-                                try
-                                {
-                                    
-                                    transportador = transportador.Substring(transportador.IndexOf(" ") + 1);
-                                    string matricula_test = new string(linha.Substring(0, 17+leng_mat).Reverse().ToArray());
-                                    if (matricula_test[1] == ' ')
-                                    {
-                                        matricula_test = new string(linha.Substring(0, 16 + leng_mat).Reverse().ToArray());
-                                    }
-                                    try
-                                    {
-                                        matricula_test = matricula_test.Substring(matricula_test.IndexOf(" . "));
-                                    }
-                                    catch
-                                    {
+                                transportador = transportador.Substring(transportador.IndexOf(" ")+1, transportador.IndexOf("-")-13);
+                                textBox9.Text = transportador;
 
-                                    }
-
-                                    transportador = transportador.Replace(matricula_test, "");
-                                    
-                                }
-                                catch (Exception exep)
-                                {
-                                    MessageBox.Show(exep+"");
-                                    transportador = transportador.Substring(transportador.IndexOf(" ") + 1, transportador.IndexOf(","));
-                                    
-                                    transportador = transportador.Replace(transportador.Substring(transportador.IndexOf(",")), "");
-                                }
-                                finally
-                                {
-                                    textBox9.Text = transportador;
-                                }
-                               
-                                
-                                
                             }
 
                             if (s.Contains("N.º ORDEM NIF/NIPC ORGANIZAÇÃO MATRÍCULA DATA INÍCIO TRANSPORTE HORA INÍCIO TRANSPORTE"))
@@ -196,7 +157,6 @@ namespace ConvertPDF2TXT
                             if (s.Contains("CÓDIGO DOCUMENTO"))
                             {
                                 textBox5.Text = s.Substring(17, 16);
-                               
                             }
                             if (contador2 > 0)
                             {
@@ -220,31 +180,19 @@ namespace ConvertPDF2TXT
                             else
                             {
                                 contador++;
-                                
                                 if (contador >= 1)
                                 {
-                                    if (textBox2.Text != "Error" && contador_alt == 1)
-                                    {
-                                        contador_alt++;
-                                        
-                                        index = s.IndexOf("-");
-                                        textBox8.Text = s.Substring(0, index);
-                                    }
-                                    old_s = s;
+
                                     try
                                     {
-                                       
-                                        cod_ler = true;
-                                        string teste_str = s.Substring(0, 6);
-                                        try
+                                        if (!cod_ler)
                                         {
+                                            string teste_str = s.Substring(0, 6);
                                             int teste = int.Parse(teste_str);
                                             textBox2.Text = s.Substring(0, 6);
-                                            contador_alt++;
-                                            
-
+                                            cod_ler = true;
                                         }
-                                        catch(Exception ex) { }
+                                        
                                         
                                         try
                                         {
@@ -268,9 +216,13 @@ namespace ConvertPDF2TXT
                                             index2 = s.IndexOf(",");
                                             try
                                             {
+                                               
                                                 anterior_comp = s;
-                                                anterior = s.Substring(s.IndexOf(")"));
+                                                anterior = s.Substring(s.IndexOf(")")+1);
                                                 index2 = s.IndexOf(")");
+                                                anterior = anterior.Substring(0,s.IndexOf("("));
+                                                textBox3.Text = anterior;
+                                                MessageBox.Show(anterior);
                                             }
                                             catch {
                                                 anterior = s;
@@ -278,7 +230,7 @@ namespace ConvertPDF2TXT
                                             
                                             contador2++;
                                         }
-                                        catch { }
+                                        catch(Exception except) {  }
 
                                     }
                                 }
@@ -409,7 +361,7 @@ namespace ConvertPDF2TXT
                     {
                         try
                         {
-                            string q = "insert into Registos_Entradas(Empresa, Cod_Produto,Quantidade,Data_entrada,Num_Guia,Matricula,Transportador)VALUES('" + dataGridView1.Rows[i].Cells[0].Value + "','" + dataGridView1.Rows[i].Cells[1].Value + "','" + dataGridView1.Rows[i].Cells[2].Value + "','" + dataGridView1.Rows[i].Cells[3].Value + "','" + dataGridView1.Rows[i].Cells[4].Value + "','" + dataGridView1.Rows[i].Cells[5].Value + "','" + dataGridView1.Rows[i].Cells[6].Value + "')";
+                            string q = "insert into Registos_Entradas(Empresa, Cod_Produto,Quantidade,Data_entrada,Num_Guia,Matricula,Transportador,Destino_do_Residuo)VALUES('" + dataGridView1.Rows[i].Cells[0].Value + "','" + dataGridView1.Rows[i].Cells[1].Value + "','" + dataGridView1.Rows[i].Cells[2].Value + "','" + dataGridView1.Rows[i].Cells[3].Value + "','" + dataGridView1.Rows[i].Cells[4].Value + "','" + dataGridView1.Rows[i].Cells[5].Value + "','" + dataGridView1.Rows[i].Cells[6].Value + "','" + dataGridView1.Rows[i].Cells[7].Value + "')";
                             cmd.CommandText = q;
                             cmd.ExecuteNonQuery();
                         }
@@ -459,9 +411,9 @@ namespace ConvertPDF2TXT
         {
             if(MessageBox.Show("Deseja apagar a tabela atual?","Apagar",MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                dataGridView1.Rows.Clear();
+
             }
-            
+            dataGridView1.Rows.Clear();
         }
 
         private void DependênciasToolStripMenuItem_Click(object sender, EventArgs e)
