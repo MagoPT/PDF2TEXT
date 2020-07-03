@@ -146,6 +146,7 @@ namespace ConvertPDF2TXT
                                 string transportador = s.Substring(s.IndexOf(" ") + 1);
                                 try
                                 {
+                                    bool matr = false;
                                     
                                     transportador = transportador.Substring(transportador.IndexOf(" ") + 1);
                                     string matricula_test = new string(linha.Substring(0, 17+leng_mat).Reverse().ToArray());
@@ -160,9 +161,31 @@ namespace ConvertPDF2TXT
                                     catch
                                     {
 
+                                    }if(textBox4.Text == "Error")
+                                    {
+                                        string matricula2 = new string(s.Reverse().ToArray());
+                                        matricula2 = matricula2.Substring(17);
+                                        matricula2 = new string(matricula2.Reverse().ToArray());
+                                        matr = true;
                                     }
-
+                                   
                                     transportador = transportador.Replace(matricula_test, "");
+                                    if (matr)
+                                    {
+                                        if (transportador.ToLower().Contains("lda")){
+                                            string teste_rand = new string(transportador.Reverse().ToArray());
+
+                                            teste_rand = teste_rand.Substring(0, teste_rand.IndexOf('a'));
+                                            if (teste_rand.Contains('.'))
+                                            {
+                                                teste_rand = teste_rand.Substring(0, teste_rand.IndexOf('.'));
+                                            }
+
+                                            teste_rand = new string(teste_rand.Reverse().ToArray());
+                                            teste_rand.Remove(' ');
+                                            textBox4.Text = teste_rand;
+                                        }
+                                    }
                                     
                                 }
                                 catch (Exception exep)
