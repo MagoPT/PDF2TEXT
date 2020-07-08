@@ -48,9 +48,24 @@ namespace ConvertPDF2TXT
             label7.Text = "Transportador:";
             label8.Text = "Operação:";
             dataGridView1.ReadOnly = false;
-            //textBox1.Enabled = false;
         }
 
+        public float quantidade_get(string mat, int caract)
+        {
+            float matricula_final;
+            try
+            {
+                matricula_final = float.Parse(mat.Substring(0, caract));
+            }
+            catch
+            {
+                caract--;
+                matricula_final = quantidade_get(mat, caract);
+            }
+
+            return matricula_final;
+            
+        }
         private void Button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -69,9 +84,11 @@ namespace ConvertPDF2TXT
 
         private void Button2_Click(object sender, EventArgs e)
         {
+            int tamanho = listBox1.Items.Count;
             try {
-                foreach (string item in listBox1.Items)
+                for (int counter = 0; counter < tamanho; counter++)
                 {
+                    string item = listBox1.Items[0].ToString();
                     PDDocument doc = PDDocument.load(item);
                     PDFTextStripper stripper = new PDFTextStripper();
                     richTextBox1.Text = (stripper.getText(doc));
@@ -86,7 +103,9 @@ namespace ConvertPDF2TXT
                     int index = 0;
                     int index2 = 0;
                     int matricula_str = 0;
+                    string transport_orig = "";
                     int contador2 = 0;
+                    var old_Strings = new List<string>();
                     textBox2.Text = "Error";
                     textBox3.Text = "Error";
                     textBox4.Text = "Error";
@@ -129,20 +148,11 @@ namespace ConvertPDF2TXT
                                     textBox4.Text = textBox4.Text.Replace(" ", "");
                                 }
                                 textBox6.Text = matricula.Substring(9, 10);
-                                try
-                                {
-                                   string data = textBox6.Text[8] + "" + textBox6.Text[9] + "/" + textBox6.Text[5] + "" + textBox6.Text[6] + "/" + textBox6.Text[0] + "" + textBox6.Text[1] + textBox6.Text[2] + "" + textBox6.Text[3];
-                                   
-                                    textBox6.Text = data;
-                                }
-                                catch
-                                {
 
-                                }
-                                //textBox6.Text = textBox6.Text.Reverse().ToString(); ;
-                                //string transportador = new string(linha.Substring(27, 50).Reverse().ToArray());
-                                //index = transportador.IndexOf(",");
-                                //textBox9.Text = transportador.Substring(0, index);
+                                string data = textBox6.Text[8] + "" + textBox6.Text[9] + "/" + textBox6.Text[5] + "" + textBox6.Text[6] + "/" + textBox6.Text[0] + "" + textBox6.Text[1] + textBox6.Text[2] + "" + textBox6.Text[3];
+                                textBox6.Text = data;
+
+
                                 string transportador = s.Substring(s.IndexOf(" ") + 1);
                                 try
                                 {
@@ -190,7 +200,6 @@ namespace ConvertPDF2TXT
                                 }
                                 catch (Exception exep)
                                 {
-                                    MessageBox.Show(exep+"");
                                     transportador = transportador.Substring(transportador.IndexOf(" ") + 1, transportador.IndexOf(","));
                                     
                                     transportador = transportador.Replace(transportador.Substring(transportador.IndexOf(",")), "");
@@ -198,6 +207,7 @@ namespace ConvertPDF2TXT
                                 finally
                                 {
                                     textBox9.Text = transportador;
+                                    transport_orig = s;
                                 }
                                
                                 
@@ -251,9 +261,10 @@ namespace ConvertPDF2TXT
                             else
                             {
                                 contador++;
+                                
                                 if (contador >= 1)
                                 {
-
+                                    old_Strings.Add(s);
                                     try
                                     {
                                         cod_ler = true;
@@ -302,6 +313,80 @@ namespace ConvertPDF2TXT
                             //MessageBox.Show("Error", eg.ToString());
                         }
                     }
+                    if(textBox4.Text == "Error" || textBox8.Text=="Error")
+                    {
+                        if (textBox8.Text == "Error")
+                        {
+
+                            for (int i = 0; i < 4; i++)
+                            {
+                                switch (i)
+                                {
+                                    case 1:
+                                        try
+                                        {
+                                            textBox3.Text = quantidade_get(old_Strings[i], 10) + "";
+                                        }
+                                        catch { }
+                                        break;
+
+
+
+                                    case 3:
+                                        try
+                                        {
+                                            textBox8.Text = old_Strings[i].Substring(0, old_Strings[i].IndexOf('-'));
+                                        }
+                                        catch { }
+                                        break;
+
+
+                                }
+
+                            }
+                        }
+                        try
+                        {
+                            string reverse = new string(transport_orig.Reverse().ToArray());
+                            string text_remove = reverse.Substring(0, 16);
+                            reverse = reverse.Replace(text_remove, "");
+                            string orig = new string(reverse.Reverse().ToArray());
+                            text_remove = orig.Substring(0, 12);
+                            orig = orig.Replace(text_remove, "");
+                            string matricula_final = "";
+                            string transportador_final = "";
+                            string orig_rev = new string(orig.Reverse().ToArray());
+                            matricula_final = new string(orig_rev.Substring(0, orig_rev.IndexOf(' ')).Reverse().ToArray());
+                            if(matricula_final.Equals(""))
+                            {
+                                
+                                orig_rev = orig_rev.Substring(1, orig_rev.Length-1);
+                                matricula_final = new string(orig_rev.Substring(0, orig_rev.IndexOf(' ')).Reverse().ToArray());
+                            }
+                            transportador_final = orig.Replace(matricula_final, "");
+                            transportador_final = new string(transportador_final.Reverse().ToArray());
+                            string check_last_mat = transportador_final.ToUpper().Substring(0, 8);
+                            
+                            if(check_last_mat.Contains("ADL") || check_last_mat.Contains(".ADL") || check_last_mat.Contains("AS") || check_last_mat.Contains(".A.S"))
+                            {
+
+                            }
+                            else
+                            {
+                                transportador_final = transportador_final.Replace(check_last_mat, "");
+                                matricula_final = new string(check_last_mat.Reverse().ToArray()) + matricula_final;
+                            }
+
+                            //MessageBox.Show(check_last_mat);
+                            transportador_final = new string(transportador_final.Reverse().ToArray());
+                            textBox4.Text = matricula_final;
+                            textBox9.Text = transportador_final;
+                        }
+                        catch(Exception ai_a_minha_vida) {
+                            MessageBox.Show(ai_a_minha_vida+"");
+                        }
+                    }
+
                     if (textBox2.Text == "Error")
                     {
                         error = error + " Cod. Ler";
@@ -394,6 +479,7 @@ namespace ConvertPDF2TXT
                     {
                         string[] row = new string[] { textBox7.Text, textBox2.Text, textBox3.Text, textBox6.Text, textBox5.Text, textBox4.Text, textBox9.Text, textBox8.Text };
                         dataGridView1.Rows.Add(row);
+                        listBox1.Items.RemoveAt(0);
                     }
 
 
