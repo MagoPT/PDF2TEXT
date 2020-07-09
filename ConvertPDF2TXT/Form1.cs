@@ -474,6 +474,7 @@ namespace ConvertPDF2TXT
                             string[] row = new string[] { textBox7.Text, textBox2.Text, textBox3.Text, textBox6.Text, textBox5.Text, textBox4.Text, textBox9.Text, textBox8.Text };
                             dataGridView1.Rows.Add(row);
                         }
+                        listBox1.Items.RemoveAt(0);
                     }
                     else
                     {
