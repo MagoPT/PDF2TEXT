@@ -254,6 +254,15 @@
   <data name="Operacao.HeaderText" xml:space="preserve">
     <value>Destino do Residuo</value>
   </data>
+  <metadata name="path.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="path.HeaderText" xml:space="preserve">
+    <value>caminho</value>
+  </data>
+  <data name="path.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="dataGridView1.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 25</value>
   </data>
@@ -2562,9 +2571,6 @@
         +A8AAA==
 </value>
   </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Form1</value>
   </data>
@@ -2645,6 +2651,12 @@
   </data>
   <data name="&gt;&gt;dependênciasToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;path.Name" xml:space="preserve">
+    <value>path</value>
+  </data>
+  <data name="&gt;&gt;path.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Form1</value>

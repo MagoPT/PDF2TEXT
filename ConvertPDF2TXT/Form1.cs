@@ -464,21 +464,21 @@ namespace ConvertPDF2TXT
                             var res2 = MessageBox.Show("Deseja adicionar a lista o documento?", "Cod. Ler", MessageBoxButtons.YesNo);
                             if (res2 == DialogResult.Yes)
                             {
-                                string[] row = new string[] { textBox7.Text, textBox2.Text, textBox3.Text, textBox6.Text, textBox5.Text, textBox4.Text, textBox9.Text, textBox8.Text };
+                                string[] row = new string[] { textBox7.Text, textBox2.Text, textBox3.Text, textBox6.Text, textBox5.Text, textBox4.Text, textBox9.Text, textBox8.Text, item };
                                 dataGridView1.Rows.Add(row);
                             }
 
                         }
                         else if (res == DialogResult.No)
                         {
-                            string[] row = new string[] { textBox7.Text, textBox2.Text, textBox3.Text, textBox6.Text, textBox5.Text, textBox4.Text, textBox9.Text, textBox8.Text };
+                            string[] row = new string[] { textBox7.Text, textBox2.Text, textBox3.Text, textBox6.Text, textBox5.Text, textBox4.Text, textBox9.Text, textBox8.Text, item };
                             dataGridView1.Rows.Add(row);
                         }
                         listBox1.Items.RemoveAt(0);
                     }
                     else
                     {
-                        string[] row = new string[] { textBox7.Text, textBox2.Text, textBox3.Text, textBox6.Text, textBox5.Text, textBox4.Text, textBox9.Text, textBox8.Text };
+                        string[] row = new string[] { textBox7.Text, textBox2.Text, textBox3.Text, textBox6.Text, textBox5.Text, textBox4.Text, textBox9.Text, textBox8.Text, item };
                         dataGridView1.Rows.Add(row);
                         listBox1.Items.RemoveAt(0);
                     }
@@ -496,6 +496,9 @@ namespace ConvertPDF2TXT
 
         private void Button3_Click(object sender, EventArgs e)
         {
+            String erros_log = "";
+            int erros_num = 0;
+            string path_error="";
             try
             {
                 cn.Close();
@@ -504,7 +507,10 @@ namespace ConvertPDF2TXT
                 cmd.Connection = cn;
                 if (dataGridView1.Rows.Count > 0)
                 {
-
+                    path_error = dataGridView1.Rows[0].Cells[8].Value+"";
+                    path_error = path_error.Replace(dataGridView1.Rows[0].Cells[4].Value + ".pdf", "");
+                    string path_correcto = path_error + "Corretas\\";
+                    path_error += "Erradas\\";
                     for (int i = 0; i < (dataGridView1.Rows.Count - 1); i++)
                     {
                         try
@@ -512,31 +518,62 @@ namespace ConvertPDF2TXT
                             string q = "insert into Registos_Entradas(Empresa, Cod_Produto,Quantidade,Data_entrada,Num_Guia,Matricula,Transportador)VALUES('" + dataGridView1.Rows[i].Cells[0].Value + "','" + dataGridView1.Rows[i].Cells[1].Value + "','" + dataGridView1.Rows[i].Cells[2].Value + "','" + dataGridView1.Rows[i].Cells[3].Value + "','" + dataGridView1.Rows[i].Cells[4].Value + "','" + dataGridView1.Rows[i].Cells[5].Value + "','" + dataGridView1.Rows[i].Cells[6].Value + "')";
                             cmd.CommandText = q;
                             cmd.ExecuteNonQuery();
+                            string fileName = dataGridView1.Rows[i].Cells[4].Value + "";
+                            System.IO.Directory.CreateDirectory(path_correcto);
+                            string sourceFile = System.IO.Path.Combine(dataGridView1.Rows[i].Cells[8].Value + "", "");
+                            string destFile = System.IO.Path.Combine(path_correcto, fileName + ".pdf");
+                            System.IO.File.Copy(sourceFile, destFile, true);
+                            System.IO.File.Delete(sourceFile);
                         }
                         catch (System.Data.OleDb.OleDbException error)
                         {
-                            var res = MessageBox.Show("Erro ao inserir na BD \nGuia Nº: "+ dataGridView1.Rows[i].Cells[4].Value+"\nDeseja ver mais promenores sobre este erro?","Erro ao inserir",MessageBoxButtons.YesNo);
-                            if (res == DialogResult.Yes)
-                            {
-                                MessageBox.Show(error+"", "Erro detalhado da guia: " + dataGridView1.Rows[i].Cells[4].Value);
-                            }
+                            string fileName = dataGridView1.Rows[i].Cells[4].Value + "";
+                            erros_log += fileName + ": " + error+"\n";
+                            erros_num++;
+                            System.IO.Directory.CreateDirectory(path_error);
+                            string sourceFile = System.IO.Path.Combine(dataGridView1.Rows[i].Cells[8].Value+"","");
+                            string destFile = System.IO.Path.Combine(path_error, fileName+".pdf");
+                            System.IO.File.Copy(sourceFile, destFile, true);
+                            System.IO.File.Delete(sourceFile);
+
                         }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.ToString());
-                            Clipboard.SetText(ex.ToString());
-                        }
+                        
                     }
+
                 }
+
                 cn.Close();
-            }catch(Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
+                DateTime date = DateTime.Now;
+                string timestamp = date.Hour +"_"+ date.Minute+"_" + date.Second;
+                string erros_relat = path_error + "\\log_" + timestamp + "_error.txt";
+                switch (erros_num)
+                {
+                     
+                    case 0:
+                        MessageBox.Show("Todas os dados foram bem inseridos na BD");
+                        break;
+                    case 1:
+                        MessageBox.Show(" 1 guia não foi inserida corretamente. \nUm relátorio completo pode ser encontrado em: " + erros_relat);
+                        System.IO.File.WriteAllText(erros_relat, erros_log);
+                        break;
+                    default:
+                        MessageBox.Show(erros_num + " guias não foram inseridas corretamente. \nUm relátorio completo pode ser encontrado em: " + erros_relat);
+                        System.IO.File.WriteAllText(erros_relat, erros_log);
+                        break;
+                }
             }
-            finally
+            catch(Exception ex)
             {
-                MessageBox.Show("Alterações feitas com sucesso");
+                if(db_loc == "")
+                {
+                    MessageBox.Show("Selecione a BD");
+                }
+                else
+                {
+                    MessageBox.Show(ex+"");
+                }
             }
+            dataGridView1.Rows.Clear();
             
         }
 

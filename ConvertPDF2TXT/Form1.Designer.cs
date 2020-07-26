@@ -67,6 +67,7 @@
             this.dependênciasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.path = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -112,7 +113,8 @@
             this.n_guia,
             this.matricula,
             this.Transportador,
-            this.Operacao});
+            this.Operacao,
+            this.path});
             resources.ApplyResources(this.dataGridView1, "dataGridView1");
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
@@ -293,6 +295,12 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.Button5_Click);
             // 
+            // path
+            // 
+            resources.ApplyResources(this.path, "path");
+            this.path.Name = "path";
+            this.path.ReadOnly = true;
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -374,6 +382,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Operacao;
         private System.Windows.Forms.ToolStripMenuItem dependênciasToolStripMenuItem;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn path;
     }
 }
 
