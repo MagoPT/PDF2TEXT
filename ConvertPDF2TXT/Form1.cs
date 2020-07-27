@@ -30,7 +30,6 @@ namespace ConvertPDF2TXT
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Text = "Conversor";
@@ -65,9 +64,9 @@ namespace ConvertPDF2TXT
                 matricula_final = quantidade_get(mat, caract);
             }
 
-            return matricula_final;
-            
+            return matricula_final;   
         }
+
         private void Button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -80,7 +79,6 @@ namespace ConvertPDF2TXT
                     listBox1.Items.Add(item);
                 }
             }
-
         }
 
 
@@ -126,9 +124,9 @@ namespace ConvertPDF2TXT
                     textBox7.Text = "Error";
                     textBox8.Text = "Error";
                     textBox9.Text = "Error";
+
                     foreach (string s in richTextBox1.Lines)
                     {
-
                         try
                         {
                             if (matricula_str == 1)
@@ -202,7 +200,6 @@ namespace ConvertPDF2TXT
                                             {
                                                 teste_rand = teste_rand.Substring(0, teste_rand.IndexOf('.'));
                                             }
-
                                             teste_rand = new string(teste_rand.Reverse().ToArray());
                                             teste_rand.Remove(' ');
                                             textBox4.Text = teste_rand;
@@ -221,9 +218,6 @@ namespace ConvertPDF2TXT
                                     textBox9.Text = transportador;
                                     transport_orig = s;
                                 }
-                               
-                                
-                                
                             }
 
                             if (s.Contains("N.º ORDEM NIF/NIPC ORGANIZAÇÃO MATRÍCULA DATA INÍCIO TRANSPORTE HORA INÍCIO TRANSPORTE"))
@@ -241,6 +235,7 @@ namespace ConvertPDF2TXT
                             {
                                 textBox5.Text = s.Substring(17, 16);
                             }
+
                             if (contador2 > 0)
                             {
                                 if (s.Contains("R") && !s.Contains("Res"))
@@ -259,23 +254,20 @@ namespace ConvertPDF2TXT
                                             textBox2.Text = operat;
                                             contador2--;
                                         }
-                                       
                                     }
                                 }
                             }
+
                             if (contador == 0)
                             {
                                 if (s.Contains("DADOS ORIGINAIS"))
                                 {
                                     contador++;
                                 }
-                            }
-                            else
-                            {
+                            }else{
                                 contador++;
                                 
-                                if (contador >= 1)
-                                {
+                                if (contador >= 1) {
                                     old_Strings.Add(s);
                                     try
                                     {
@@ -311,11 +303,10 @@ namespace ConvertPDF2TXT
                                             }
                                             string teste_str = s.Substring(0, index);
                                             float teste = float.Parse(teste_str);
- 
+
                                             contador2++;
                                         }
                                         catch(Exception expetion) { cod_ler = true; }
-
                                     }
                                 }
                             }
@@ -329,7 +320,6 @@ namespace ConvertPDF2TXT
                     {
                         if (textBox8.Text == "Error")
                         {
-
                             for (int i = 0; i < 4; i++)
                             {
                                 switch (i)
@@ -341,9 +331,6 @@ namespace ConvertPDF2TXT
                                         }
                                         catch { }
                                         break;
-
-
-
                                     case 3:
                                         try
                                         {
@@ -354,7 +341,6 @@ namespace ConvertPDF2TXT
 
 
                                 }
-
                             }
                         }
                         try
@@ -371,7 +357,6 @@ namespace ConvertPDF2TXT
                             matricula_final = new string(orig_rev.Substring(0, orig_rev.IndexOf(' ')).Reverse().ToArray());
                             if(matricula_final.Equals(""))
                             {
-                                
                                 orig_rev = orig_rev.Substring(1, orig_rev.Length-1);
                                 matricula_final = new string(orig_rev.Substring(0, orig_rev.IndexOf(' ')).Reverse().ToArray());
                             }
@@ -381,7 +366,7 @@ namespace ConvertPDF2TXT
                             
                             if(check_last_mat.Contains("ADL") || check_last_mat.Contains(".ADL") || check_last_mat.Contains("AS") || check_last_mat.Contains(".A.S"))
                             {
-
+                                //TODO se precisarem de gerir as extensões
                             }
                             else
                             {
@@ -561,8 +546,7 @@ namespace ConvertPDF2TXT
                 string timestamp = date.Hour +"_"+ date.Minute+"_" + date.Second;
                 string erros_relat = path_error + "\\log_" + timestamp + "_error.txt";
                 switch (erros_num)
-                {
-                     
+                {                     
                     case 0:
                         MessageBox.Show("Todas os dados foram bem inseridos na BD","Sucesso");
                         break;
@@ -587,14 +571,11 @@ namespace ConvertPDF2TXT
                 {
                     MessageBox.Show(ex+"","Erro");
                 }
-            }
-            
+            } 
         }
 
         private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
+        {}
 
         private void AjudaToolStripMenuItem_Click(object sender, EventArgs e)
         {

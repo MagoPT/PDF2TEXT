@@ -11,7 +11,6 @@ using org.apache.pdfbox.pdmodel;
 using org.apache.pdfbox.util;
 using System.Data.OleDb;
 
-
 namespace ConvertPDF2TXT
 {
     public partial class dependecias : Form
@@ -80,7 +79,6 @@ namespace ConvertPDF2TXT
                 cmd.ExecuteNonQuery();
                 cn.Close();
                 progressBar1.Value = progressBar1.Value + 25;
-
             }
             catch (Exception ex)
             {
