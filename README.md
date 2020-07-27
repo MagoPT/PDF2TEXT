@@ -1,7 +1,7 @@
 
 ## Programa desenvolvido para: APA - Agência Portuguesa do Ambiente
 
-Exte programa têm como objetivo automatizar o processo de leituras de Guias utilizadas na gestão de resíduos e-Gar
+Este programa têm como objetivo automatizar o processo de leituras de Guias utilizadas na gestão de resíduos e-Gar
 
 
 Ferramentas de desenvolvimento:
