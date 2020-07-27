@@ -81,7 +81,6 @@ namespace ConvertPDF2TXT
             }
         }
 
-
         private void Button2_Click(object sender, EventArgs e)
         {
             int tamanho = listBox1.Items.Count;
@@ -162,7 +161,6 @@ namespace ConvertPDF2TXT
                                 string data = textBox6.Text[8] + "" + textBox6.Text[9] + "/" + textBox6.Text[5] + "" + textBox6.Text[6] + "/" + textBox6.Text[0] + "" + textBox6.Text[1] + textBox6.Text[2] + "" + textBox6.Text[3];
                                 textBox6.Text = data;
 
-
                                 string transportador = s.Substring(s.IndexOf(" ") + 1);
                                 try
                                 {
@@ -178,10 +176,9 @@ namespace ConvertPDF2TXT
                                     {
                                         matricula_test = matricula_test.Substring(matricula_test.IndexOf(" . "));
                                     }
-                                    catch
-                                    {
+                                    catch{}
 
-                                    }if(textBox4.Text == "Error")
+                                    if (textBox4.Text == "Error")
                                     {
                                         string matricula2 = new string(s.Reverse().ToArray());
                                         matricula2 = matricula2.Substring(17);
@@ -204,8 +201,7 @@ namespace ConvertPDF2TXT
                                             teste_rand.Remove(' ');
                                             textBox4.Text = teste_rand;
                                         }
-                                    }
-                                    
+                                    }                                   
                                 }
                                 catch (Exception exep)
                                 {
@@ -284,8 +280,7 @@ namespace ConvertPDF2TXT
                                         {
                                             textBox3.Text = anterior.Substring(0, anterior_comp.IndexOf(","));
                                             textBox3.Text = textBox3.Text.Replace(" ", "");
-                                        }
-                                        
+                                        }                                      
                                     }
                                     catch (Exception ex)
                                     {
@@ -338,11 +333,10 @@ namespace ConvertPDF2TXT
                                         }
                                         catch { }
                                         break;
-
-
                                 }
                             }
                         }
+
                         try
                         {
                             string reverse = new string(transport_orig.Reverse().ToArray());
@@ -464,7 +458,6 @@ namespace ConvertPDF2TXT
                                 string[] row = new string[] { textBox7.Text, textBox2.Text, textBox3.Text, textBox6.Text, textBox5.Text, textBox4.Text, textBox9.Text, textBox8.Text, item };
                                 dataGridView1.Rows.Add(row);
                             }
-
                         }
                         else if (res == DialogResult.No)
                         {
@@ -479,8 +472,6 @@ namespace ConvertPDF2TXT
                         dataGridView1.Rows.Add(row);
                         listBox1.Items.RemoveAt(0);
                     }
-
-
                 }
                 listBox1.Items.Clear();
             }
@@ -491,8 +482,7 @@ namespace ConvertPDF2TXT
             label9.Visible = false;
             progressBar1.Visible = false;
         }
-       
-
+    
         private void Button3_Click(object sender, EventArgs e)
         {
             String erros_log = "";
@@ -534,11 +524,8 @@ namespace ConvertPDF2TXT
                             string destFile = System.IO.Path.Combine(path_error, fileName+".pdf");
                             System.IO.File.Copy(sourceFile, destFile, true);
                             System.IO.File.Delete(sourceFile);
-
                         }
-                        
                     }
-
                 }
 
                 cn.Close();
@@ -592,8 +579,7 @@ namespace ConvertPDF2TXT
             if(MessageBox.Show("Deseja apagar a tabela atual?","Apagar",MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 dataGridView1.Rows.Clear();
-            }
-            
+            }    
         }
 
         private void DependênciasToolStripMenuItem_Click(object sender, EventArgs e)
@@ -618,11 +604,8 @@ namespace ConvertPDF2TXT
                     provider_Db = "Provider=Microsoft.JET.OLEDB.4.0;";
                 }
                     db_loc = "Data Source ="+ ofd.FileName;
-
             }
         }
     }
 }
-
-
 //Fonte de boa parte do códgio: https://www.youtube.com/watch?v=neynvzrPTbs
