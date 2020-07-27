@@ -48,6 +48,8 @@ namespace ConvertPDF2TXT
             label7.Text = "Transportador:";
             label8.Text = "Operação:";
             dataGridView1.ReadOnly = false;
+            label9.Visible = false;
+            progressBar1.Visible = false;
         }
 
         public float quantidade_get(string mat, int caract)
@@ -85,9 +87,19 @@ namespace ConvertPDF2TXT
         private void Button2_Click(object sender, EventArgs e)
         {
             int tamanho = listBox1.Items.Count;
+            int load_size = 0;
+            if (tamanho != 0)
+            {
+                load_size = 100 / tamanho;
+                progressBar1.Visible = true;
+                progressBar1.Value = 0;
+                //label9.Visible = true;
+            }
             try {
                 for (int counter = 0; counter < tamanho; counter++)
                 {
+                    progressBar1.Value += load_size;
+                    label9.Text = "A carregar "+(counter+1)+"de" +tamanho;
                     string item = listBox1.Items[0].ToString();
                     PDDocument doc = PDDocument.load(item);
                     PDFTextStripper stripper = new PDFTextStripper();
@@ -491,6 +503,8 @@ namespace ConvertPDF2TXT
             {
                 MessageBox.Show(ex.ToString());
             }
+            label9.Visible = false;
+            progressBar1.Visible = false;
         }
        
 
@@ -550,30 +564,30 @@ namespace ConvertPDF2TXT
                 {
                      
                     case 0:
-                        MessageBox.Show("Todas os dados foram bem inseridos na BD");
+                        MessageBox.Show("Todas os dados foram bem inseridos na BD","Sucesso");
                         break;
                     case 1:
-                        MessageBox.Show(" 1 guia não foi inserida corretamente. \nUm relátorio completo pode ser encontrado em: " + erros_relat);
+                        MessageBox.Show(" 1 guia não foi inserida corretamente. \nUm relátorio completo pode ser encontrado em: " + erros_relat, "Erro DB");
                         System.IO.File.WriteAllText(erros_relat, erros_log);
                         break;
                     default:
-                        MessageBox.Show(erros_num + " guias não foram inseridas corretamente. \nUm relátorio completo pode ser encontrado em: " + erros_relat);
+                        MessageBox.Show(erros_num + " guias não foram inseridas corretamente. \nUm relátorio completo pode ser encontrado em: " + erros_relat, "Erro DB");
                         System.IO.File.WriteAllText(erros_relat, erros_log);
                         break;
                 }
+                dataGridView1.Rows.Clear();
             }
             catch(Exception ex)
             {
                 if(db_loc == "")
                 {
-                    MessageBox.Show("Selecione a BD");
+                    MessageBox.Show("Selecione a BD","BD erro");
                 }
                 else
                 {
-                    MessageBox.Show(ex+"");
+                    MessageBox.Show(ex+"","Erro");
                 }
             }
-            dataGridView1.Rows.Clear();
             
         }
 

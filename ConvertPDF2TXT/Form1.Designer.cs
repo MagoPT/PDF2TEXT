@@ -44,6 +44,7 @@
             this.matricula = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Transportador = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Operacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.path = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -67,7 +68,8 @@
             this.dependênciasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.path = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -167,6 +169,12 @@
             resources.ApplyResources(this.Operacao, "Operacao");
             this.Operacao.Name = "Operacao";
             this.Operacao.ReadOnly = true;
+            // 
+            // path
+            // 
+            resources.ApplyResources(this.path, "path");
+            this.path.Name = "path";
+            this.path.ReadOnly = true;
             // 
             // listBox1
             // 
@@ -295,16 +303,22 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.Button5_Click);
             // 
-            // path
+            // progressBar1
             // 
-            resources.ApplyResources(this.path, "path");
-            this.path.Name = "path";
-            this.path.ReadOnly = true;
+            resources.ApplyResources(this.progressBar1, "progressBar1");
+            this.progressBar1.Name = "progressBar1";
+            // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
             // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.menuStrip1);
@@ -383,6 +397,8 @@
         private System.Windows.Forms.ToolStripMenuItem dependênciasToolStripMenuItem;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.DataGridViewTextBoxColumn path;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label label9;
     }
 }
 
