@@ -85,13 +85,28 @@ namespace ConvertPDF2TXT
         {
             int tamanho = listBox1.Items.Count;
             int load_size = 0;
+            string path_error = "";
+            string log = "";
+            List<string> docs = new List<string>();
             if (tamanho != 0)
             {
                 load_size = 100 / tamanho;
                 progressBar1.Visible = true;
                 progressBar1.Value = 0;
                 //label9.Visible = true;
+                try
+                {
+                    path_error = new string(listBox1.Items[0].ToString().Reverse().ToArray());
+                    String path_error_remove = path_error.Substring(0, path_error.IndexOf('\\'));
+                    path_error = path_error.Replace(path_error_remove, "");
+                    path_error = new string(path_error.Reverse().ToArray());
+                    path_error += "Erradas_leitura\\";
+                }catch(Exception ex)
+                {
+                    path_error = "C:\\guias\\leitura\\Erradas_leitura\\";
+                }
             }
+            
             try {
                 for (int counter = 0; counter < tamanho; counter++)
                 {
@@ -448,22 +463,8 @@ namespace ConvertPDF2TXT
 
                     if (error != "")
                     {
-                        var res = MessageBox.Show("Error ao ler:  " + error + " \nDocumenro afetado: " + item + "\n Deseja abrir o documento e confirmar?", "Error ao ler", MessageBoxButtons.YesNoCancel);
-                        if (res == DialogResult.Yes)
-                        {
-                            System.Diagnostics.Process.Start(item);
-                            var res2 = MessageBox.Show("Deseja adicionar a lista o documento?", "Cod. Ler", MessageBoxButtons.YesNo);
-                            if (res2 == DialogResult.Yes)
-                            {
-                                string[] row = new string[] { textBox7.Text, textBox2.Text, textBox3.Text, textBox6.Text, textBox5.Text, textBox4.Text, textBox9.Text, textBox8.Text, item };
-                                dataGridView1.Rows.Add(row);
-                            }
-                        }
-                        else if (res == DialogResult.No)
-                        {
-                            string[] row = new string[] { textBox7.Text, textBox2.Text, textBox3.Text, textBox6.Text, textBox5.Text, textBox4.Text, textBox9.Text, textBox8.Text, item };
-                            dataGridView1.Rows.Add(row);
-                        }
+                        log += "///***\\\\\\ \nError ao ler:  " + error + " \nDocumento afetado: " + item;
+                        docs.Add(listBox1.Items.ToString());
                         listBox1.Items.RemoveAt(0);
                     }
                     else
@@ -481,6 +482,20 @@ namespace ConvertPDF2TXT
             }
             label9.Visible = false;
             progressBar1.Visible = false;
+            try
+            {
+                if (log != "")
+                {
+                    DateTime date = DateTime.Now;
+                    string timestamp = date.Hour + "_" + date.Minute + "_" + date.Second;
+                    System.IO.Directory.CreateDirectory(path_error);
+                    string erros_relat = path_error + "\\log_" + timestamp + "_error.txt";
+                    System.IO.File.WriteAllText(erros_relat, log);
+                    MessageBox.Show("Erro ao ler " + docs.Count + " documento(s) \nUm relatório completo pode ser encontrado em: " + erros_relat);
+                }
+            }
+            catch(Exception ex) { MessageBox.Show(ex + ""); }
+            
         }
     
         private void Button3_Click(object sender, EventArgs e)
