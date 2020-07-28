@@ -494,8 +494,7 @@ namespace ConvertPDF2TXT
                     MessageBox.Show("Erro ao ler " + docs.Count + " documento(s) \nUm relatório completo pode ser encontrado em: " + erros_relat);
                 }
             }
-            catch(Exception ex) { MessageBox.Show(ex + ""); }
-            
+            catch(Exception ex) { MessageBox.Show(ex + ""); }           
         }
     
         private void Button3_Click(object sender, EventArgs e)
