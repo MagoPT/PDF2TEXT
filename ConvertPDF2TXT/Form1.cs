@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using org.apache.pdfbox.pdmodel;
 using org.apache.pdfbox.util;
-using MySql.Data.MySqlClient;
 using System.Data.OleDb;
 
 namespace ConvertPDF2TXT
@@ -216,7 +215,36 @@ namespace ConvertPDF2TXT
                                             teste_rand.Remove(' ');
                                             textBox4.Text = teste_rand;
                                         }
-                                    }                                   
+                                    }
+                                    try {
+                                        string subTrans = new string(transportador.Reverse().ToArray());
+                                        subTrans = subTrans.Substring(0, subTrans.IndexOf('-') + 6);
+                                        subTrans = new string(subTrans.Reverse().ToArray());
+                                        if (subTrans[2].Equals('-') && subTrans[5].Equals('-')) {
+                                            //MessageBox.Show(subTrans,"Title");
+                                            transportador = transportador.Replace(subTrans, "");
+                                            textBox4.Text = subTrans + " " + textBox4.Text;
+                                        }
+                                    }
+                                    catch (Exception ex) { }
+
+                                    try
+                                    {
+                                        string clearMatr = textBox4.Text;
+                                        clearMatr = clearMatr.ToUpper();
+                                        string newMat = "";
+                                        for (int i = 0; i < clearMatr.Length; i++)
+                                        {
+                                            if ((clearMatr[i] >= 48 && clearMatr[i] <= 57) || (clearMatr[i] >= 65 && clearMatr[i] <= 90) || clearMatr[i] == ' ' || clearMatr[i] == '-' || clearMatr[i] == 45)
+                                            {
+                                                newMat += clearMatr[i];
+                                            }
+                                        }
+                                        textBox4.Text = newMat;
+                                    }
+                                    catch (Exception es) { }
+                                    
+
                                 }
                                 catch (Exception exep)
                                 {
