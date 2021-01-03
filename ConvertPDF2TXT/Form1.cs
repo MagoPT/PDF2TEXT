@@ -304,6 +304,7 @@ namespace ConvertPDF2TXT
                                     contador++;
                                 }
                             }else{
+                                //MessageBox.Show(s);
                                 contador++;
                                 
                                 if (contador >= 1) {
@@ -316,6 +317,7 @@ namespace ConvertPDF2TXT
                                         textBox2.Text = s.Substring(0, 6);
                                         try
                                         {
+                                            //MessageBox.Show(anterior, "Quantidade");
                                             textBox3.Text = anterior.Substring(anterior.IndexOf(")") + 1, anterior.IndexOf(",") + 2);
                                             textBox3.Text=textBox3.Text.Replace(" ","");
                                         }
@@ -330,13 +332,13 @@ namespace ConvertPDF2TXT
                                         try
                                         {
                                             index = s.IndexOf(",");
-                                            if(cod_ler && !justone)
+                                            if(cod_ler)
                                             {
                                                 anterior_comp = s;
                                                 anterior = s.Substring(s.IndexOf(")")+1);
                                                 anterior = anterior.Substring(0, anterior.IndexOf("("));
                                                 cod_ler = false;
-                                                justone = true;
+                                                //justone = true;
                                                 textBox3.Text = anterior;
                                             }
                                             string teste_str = s.Substring(0, index);
