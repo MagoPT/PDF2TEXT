@@ -304,7 +304,6 @@ namespace ConvertPDF2TXT
                                     contador++;
                                 }
                             }else{
-                                //MessageBox.Show(s);
                                 contador++;
                                 
                                 if (contador >= 1) {
@@ -317,7 +316,6 @@ namespace ConvertPDF2TXT
                                         textBox2.Text = s.Substring(0, 6);
                                         try
                                         {
-                                            //MessageBox.Show(anterior, "Quantidade");
                                             textBox3.Text = anterior.Substring(anterior.IndexOf(")") + 1, anterior.IndexOf(",") + 2);
                                             textBox3.Text=textBox3.Text.Replace(" ","");
                                         }
