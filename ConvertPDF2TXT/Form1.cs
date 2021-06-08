@@ -305,25 +305,28 @@ namespace ConvertPDF2TXT
                                 }
                             }else{
                                 contador++;
-                                
+
                                 if (contador >= 1) {
                                     old_Strings.Add(s);
                                     try
                                     {
-                                        cod_ler = true;
-                                        string teste_str = s.Substring(0, 6);
-                                        int teste = int.Parse(teste_str);
-                                        textBox2.Text = s.Substring(0, 6);
                                         try
                                         {
-                                            textBox3.Text = anterior.Substring(anterior.IndexOf(")") + 1, anterior.IndexOf(",") + 2);
-                                            textBox3.Text=textBox3.Text.Replace(" ","");
+                                            if (textBox3.Text.Equals("Error")) {
+                                                textBox3.Text = anterior.Substring(anterior.IndexOf(")") + 1, anterior.IndexOf(",") + 2);
+                                                textBox3.Text = textBox3.Text.Replace(" ", "");
+                                                if (textBox3.Text.Length < 3) textBox3.Text = "Error";
+                                            }
                                         }
                                         catch
                                         {
                                             textBox3.Text = anterior.Substring(0, anterior_comp.IndexOf(","));
                                             textBox3.Text = textBox3.Text.Replace(" ", "");
-                                        }                                      
+                                        }
+                                        cod_ler = true;
+                                        string teste_str = s.Substring(0, 6);
+                                        int teste = int.Parse(teste_str);
+                                        textBox2.Text = s.Substring(0, 6);
                                     }
                                     catch (Exception ex)
                                     {
@@ -336,7 +339,7 @@ namespace ConvertPDF2TXT
                                                 anterior = s.Substring(s.IndexOf(")")+1);
                                                 anterior = anterior.Substring(0, anterior.IndexOf("("));
                                                 cod_ler = false;
-                                                //justone = true;
+                                                anterior.Last().ToString(); //IDK WTF THIS IS DOING BUT ITS ESSENCIAL
                                                 textBox3.Text = anterior;
                                             }
                                             string teste_str = s.Substring(0, index);
@@ -497,7 +500,7 @@ namespace ConvertPDF2TXT
                     }
                     else
                     {
-                        string[] row = new string[] { textBox7.Text, textBox2.Text, textBox3.Text, textBox6.Text, textBox5.Text, textBox4.Text, textBox9.Text, textBox8.Text, item };
+                        string[] row = new string[] { textBox7.Text, textBox2.Text, textBox3.Text.Trim(), textBox6.Text, textBox5.Text, textBox4.Text, textBox9.Text, textBox8.Text, item };
                         dataGridView1.Rows.Add(row);
                         listBox1.Items.RemoveAt(0);
                     }
