@@ -125,3 +125,7 @@ C:\Projetos\RepoV3\PDF2TEXT\ConvertPDF2TXT\obj\Debug\pt\ConvertPDF2TXT.resources
 C:\Projetos\RepoV3\PDF2TEXT\ConvertPDF2TXT\obj\Debug\ConvertPDF2TXT.csproj.CopyComplete
 C:\Projetos\RepoV3\PDF2TEXT\ConvertPDF2TXT\obj\Debug\ConvertPDF2TXT.exe
 C:\Projetos\RepoV3\PDF2TEXT\ConvertPDF2TXT\obj\Debug\ConvertPDF2TXT.pdb
+C:\Projetos\RepoV3\PDF2TEXT\ConvertPDF2TXT\bin\Debug\ConvertPDF2TXT.exe.manifest
+C:\Projetos\RepoV3\PDF2TEXT\ConvertPDF2TXT\bin\Debug\ConvertPDF2TXT.application
+C:\Projetos\RepoV3\PDF2TEXT\ConvertPDF2TXT\obj\Debug\ConvertPDF2TXT.exe.manifest
+C:\Projetos\RepoV3\PDF2TEXT\ConvertPDF2TXT\obj\Debug\ConvertPDF2TXT.application

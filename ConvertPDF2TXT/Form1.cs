@@ -151,7 +151,11 @@ namespace ConvertPDF2TXT
                                
                                 if (s.Contains("-"))
                                 {
-                                    textBox4.Text = matricula.Substring(0, 8).ToUpper();
+                                    if (matricula[1] == ' ') {
+                                        textBox4.Text =  matricula.Substring(1, 8).ToUpper();
+                                    }
+                                    else
+                                        textBox4.Text = matricula.Substring(0, 8).ToUpper();
                                     leng_mat = textBox4.Text.Length;
                                     textBox4.Text = textBox4.Text.Replace("-","");
                                     textBox4.Text = textBox4.Text.Replace(" ", "");
@@ -336,11 +340,18 @@ namespace ConvertPDF2TXT
                                             if(cod_ler)
                                             {
                                                 anterior_comp = s;
-                                                anterior = s.Substring(s.IndexOf(")")+1);
-                                                anterior = anterior.Substring(0, anterior.IndexOf("("));
-                                                cod_ler = false;
+                                                anterior = s.Substring(0, s.IndexOf("("));
+                                                //cod_ler = false;
                                                 anterior.Last().ToString(); //IDK WTF THIS IS DOING BUT ITS ESSENCIAL
                                                 textBox3.Text = anterior;
+                                                try
+                                                {
+                                                    anterior = s.Substring(s.IndexOf(")"));
+                                                    anterior =  anterior.Substring(1, s.IndexOf("("));
+                                                    anterior.Last().ToString(); //IDK WTF THIS IS DOING BUT ITS ESSENCIAL
+                                                    textBox3.Text = anterior;
+                                                }
+                                                catch (Exception eb) { }
                                             }
                                             string teste_str = s.Substring(0, index);
                                             float teste = float.Parse(teste_str);
