@@ -279,27 +279,22 @@ namespace ConvertPDF2TXT
                                 textBox5.Text = s.Substring(17, 16);
                             }
 
-                            if (contador2 > 0)
-                            {
-                                if (s.Contains("R") && !s.Contains("Res"))
+                                if (s.Contains("R") && !s.Contains("Res") && s.Contains(" - "))
                                 {
-                                    if (s.Contains(" - "))
-                                    {
                                         index = s.IndexOf("-");
                                         string operat = s.Substring(0, index);
                                         if (operat.Length < 5)
                                         {
                                             textBox8.Text = operat;
-                                            break;
+                                            contador2 =100;
                                         }
                                         else
                                         {
                                             textBox2.Text = operat;
-                                            contador2--;
                                         }
-                                    }
+                                    
                                 }
-                            }
+                            
 
                             if (contador == 0)
                             {
@@ -337,7 +332,7 @@ namespace ConvertPDF2TXT
                                         try
                                         {
                                             index = s.IndexOf(",");
-                                            if(cod_ler)
+                                            if(cod_ler && contador2 != 100)
                                             {
                                                 anterior_comp = s;
                                                 anterior = s.Substring(0, s.IndexOf("("));
